@@ -20,7 +20,7 @@ const router = createRouter({
       return savedPosition
     }
     return { top: 0 }
-  },
+  }, //定义了路由跳转时页面滚动的行为
 });
 
 export default router;
