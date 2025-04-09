@@ -1,4 +1,5 @@
 import { createWebHistory, createRouter } from 'vue-router'
+import Layout from '@/layout'
 
 // 公共路由
 export const constantRoutes = [
@@ -6,7 +7,25 @@ export const constantRoutes = [
     path: '/login',
     component: () => import('@/views/login'),
     hidden: true
-  }
+  },
+  {
+    path: '',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [
+      {
+        path: '/dashboard',
+        component: () => import('@/views/dashboard'),
+        name: 'Dashboard',
+      }
+    ]
+  },
+    // 👇 最后一项放通配符路由（务必放在最后）
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('@/views/error/404'),
+    },
 ]
 
 // 动态路由，基于用户权限动态去加载

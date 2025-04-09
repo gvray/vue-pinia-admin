@@ -10,16 +10,25 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "axios": "^1.8.4",
+    "crypto-js": "^4.2.0",
+    "element-plus": "^2.9.7",
     "pinia": "^3.0.1",
+    "storetify": "^1.1.0",
+    "swiftlet-log": "^1.1.0",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",
+    "sass": "^1.86.3",
     "typescript": "~5.7.2",
+    "unplugin-auto-import": "^19.1.2",
+    "unplugin-vue-components": "^28.4.1",
     "vite": "^6.2.0",
     "vite-plugin-mock": "^3.0.2",
     "vue-tsc": "^2.2.4"
