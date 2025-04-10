@@ -17,6 +17,10 @@ export const constantRoutes = [
         path: '/dashboard',
         component: () => import('@/views/dashboard'),
         name: 'Dashboard',
+        meta: {
+          title: '首页',
+          icon: 'dashboard'
+        }
       }
     ]
   },
@@ -25,6 +29,9 @@ export const constantRoutes = [
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
       component: () => import('@/views/error/404'),
+      meta: {
+        title: '404'
+      }
     },
 ]
 

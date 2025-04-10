@@ -14,6 +14,7 @@
     "axios": "^1.8.4",
     "crypto-js": "^4.2.0",
     "element-plus": "^2.9.7",
+    "nprogress": "^0.2.0",
     "pinia": "^3.0.1",
     "storetify": "^1.1.0",
     "swiftlet-log": "^1.1.0",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@types/crypto-js": "^4.2.2",
     "@types/node": "^22.14.0",
+    "@types/nprogress": "^0.2.3",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",
     "sass": "^1.86.3",

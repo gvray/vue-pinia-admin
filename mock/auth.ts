@@ -4,7 +4,7 @@ export default [
   {
     url: '/api/login',
     method: 'post',
-    timeout: 2000, // 模拟网络延迟（单位：ms）
+    timeout: 1000, // 模拟网络延迟（单位：ms）
     response:({ body }) => {
       const { username, password } = body
       if (username === 'admin' && password === '123456') {

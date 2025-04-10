@@ -17,8 +17,8 @@ const useUserStore = defineStore("user", {
       const password = userInfo.password;
       return new Promise((resolve, reject) => {
         login(username, password)
-          .then((res) => {
-            // TODO token
+          .then((data) => {
+            setToken(data.accessToken);
             resolve();
           })
           .catch((error) => {
