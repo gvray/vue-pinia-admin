@@ -12,3 +12,19 @@ export function login(username: string, password: string) {
     data: data,
   });
 }
+
+// 退出方法
+export function logout() {
+  return request({
+    url: "/logout",
+    method: "post",
+  });
+}
+
+// 获取用户详细信息
+export function getInfo() {
+  return request({
+    url: "/currentUser",
+    method: "get",
+  });
+}

@@ -21,6 +21,15 @@ export const constantRoutes = [
           title: '首页',
           icon: 'dashboard'
         }
+      },
+      {
+        path: '/user',
+        component: () => import('@/views/user'),
+        name: 'User',
+        meta: {
+          title: '用户列表',
+          icon: 'user'
+        }
       }
     ]
   },
