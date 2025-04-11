@@ -1,18 +1,25 @@
-import request from '@/utils/request';
+import request from "@/utils/request";
 
 // 获取当前用户
 export function getInfo() {
   return request({
-    url: '/currentUser',
-    method: 'get',
+    url: "/currentUser",
+    method: "get",
   });
 }
 
 // 获取用户列表
-export function listUser() {
+export function listUser(params: {
+  pageNum: number;
+  pageSize: number;
+  userName: undefined;
+  phonenumber: undefined;
+  status: undefined;
+}) {
   return request({
-    url: '/user/list',
-    method: 'get',
+    url: "/user/list",
+    method: "get",
+    params,
   });
 }
 
@@ -20,15 +27,15 @@ export function listUser() {
 export function deleteUser(userId: number) {
   return request({
     url: `/user/${userId}`,
-    method: 'delete',
+    method: "delete",
   });
 }
 
 // 新增用户
 export function addUser(data: any) {
   return request({
-    url: '/user',
-    method: 'post',
+    url: "/user",
+    method: "post",
     data,
   });
 }
@@ -36,8 +43,8 @@ export function addUser(data: any) {
 // 更新用户
 export function updateUser(data: any) {
   return request({
-    url: '/user',
-    method: 'put',
+    url: "/user",
+    method: "put",
     data,
   });
 }
@@ -46,6 +53,6 @@ export function updateUser(data: any) {
 export function getUser(userId: number) {
   return request({
     url: `/user/${userId}`,
-    method: 'get',
+    method: "get",
   });
 }
