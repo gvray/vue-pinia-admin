@@ -11,6 +11,9 @@ import storetify from 'storetify'
 // svg图标
 import elementIcons from '@/components/SvgIcon/svgicon'
 
+// 分页组件
+import Pagination from '@/components/Pagination'
+
 // 路由守卫
 import './permission'
 
@@ -21,6 +24,9 @@ const app = createApp(App)
 // 挂载全局属性
 app.config.globalProperties.$resetForm = resetForm
 app.config.globalProperties.$addDateRange = addDateRange
+
+// 全局挂载组件
+app.component('Pagination', Pagination)
 
 app.use(router)
 app.use(store)

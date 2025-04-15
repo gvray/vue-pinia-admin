@@ -1,97 +1,121 @@
 <template>
-  <div>
-    <el-form
-      :model="queryParams"
-      ref="queryRef"
-      :inline="true"
-      v-show="showSearch"
-      label-width="68px"
-    >
-      <el-form-item label="用户名称" prop="userName">
-        <el-input
-          v-model="queryParams.userName"
-          placeholder="请输入用户名称"
-          clearable
-          style="width: 240px"
-          @keyup.enter="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="手机号码" prop="phoneNumber">
-        <el-input
-          v-model="queryParams.phoneNumber"
-          placeholder="请输入手机号码"
-          clearable
-          style="width: 240px"
-          @keyup.enter="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="状态" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          placeholder="用户状态"
-          clearable
-          style="width: 240px"
+  <div class="app-container">
+    <el-row :gutter="20">
+      <el-col>
+        <el-form
+          :model="queryParams"
+          ref="queryRef"
+          :inline="true"
+          v-show="showSearch"
+          label-width="68px"
         >
-          <el-option label="正常" :value="0" />
-          <el-option label="停用" :value="1" />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="创建时间" style="width: 308px">
-        <el-date-picker
-          v-model="dateRange"
-          value-format="YYYY-MM-DD"
-          type="daterange"
-          range-separator="-"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-        ></el-date-picker>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" icon="Search" @click="handleQuery"
-          >搜索</el-button
-        >
-        <el-button icon="Refresh" @click="resetQuery">重置</el-button>
-      </el-form-item>
-    </el-form>
-    <el-button type="primary" @click="handleAdd">新增用户</el-button>
-    <el-table :data="userList" style="width: 100%" :loading="loading">
-      <el-table-column prop="userId" label="用户编号" width="100" />
-      <el-table-column prop="userName" label="用户名称" />
-      <el-table-column prop="nickName" label="用户昵称" />
-      <el-table-column prop="phoneNumber" label="手机号" />
-      <el-table-column prop="status" label="状态" :formatter="formatStatus" />
-      <el-table-column prop="createTime" label="创建时间" />
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="createTime"
-        width="160"
+          <el-form-item label="用户名称" prop="userName">
+            <el-input
+              v-model="queryParams.userName"
+              placeholder="请输入用户名称"
+              clearable
+              style="width: 240px"
+              @keyup.enter="handleQuery"
+            />
+          </el-form-item>
+          <el-form-item label="手机号码" prop="phoneNumber">
+            <el-input
+              v-model="queryParams.phoneNumber"
+              placeholder="请输入手机号码"
+              clearable
+              style="width: 240px"
+              @keyup.enter="handleQuery"
+            />
+          </el-form-item>
+          <el-form-item label="状态" prop="status">
+            <el-select
+              v-model="queryParams.status"
+              placeholder="用户状态"
+              clearable
+              style="width: 240px"
+            >
+              <el-option label="正常" :value="0" />
+              <el-option label="停用" :value="1" />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="创建时间" style="width: 308px">
+            <el-date-picker
+              v-model="dateRange"
+              value-format="YYYY-MM-DD"
+              type="daterange"
+              range-separator="-"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+            ></el-date-picker>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" icon="Search" @click="handleQuery"
+              >搜索</el-button
+            >
+            <el-button icon="Refresh" @click="resetQuery">重置</el-button>
+          </el-form-item>
+        </el-form></el-col
       >
-        <template #default="scope">
-          <span>{{ dayjs(scope.row.createTime).format("YYYY MM-DD") }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" width="160">
-        <template #default="scope">
-          <el-button
-            type="primary"
-            text
-            size="small"
-            @click="handleEdit(scope.row)"
+      <el-col>
+        <el-button type="primary" @click="handleAdd"
+          >新增用户</el-button
+        ></el-col
+      >
+      <el-col>
+        <el-table :data="userList" style="width: 100%" :loading="loading">
+          <el-table-column prop="userId" label="用户编号" width="100" />
+          <el-table-column prop="userName" label="用户名称" />
+          <el-table-column prop="nickName" label="用户昵称" />
+          <el-table-column prop="phoneNumber" label="手机号" />
+          <el-table-column
+            prop="status"
+            label="状态"
+            :formatter="formatStatus"
+          />
+          <el-table-column prop="createTime" label="创建时间" />
+          <el-table-column
+            label="创建时间"
+            align="center"
+            prop="createTime"
+            width="160"
           >
-            修改
-          </el-button>
-          <el-button
-            type="danger"
-            text
-            size="small"
-            @click="handleDelete(scope.row)"
-          >
-            删除
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+            <template #default="scope">
+              <span>{{
+                dayjs(scope.row.createTime).format("YYYY MM-DD")
+              }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" width="160">
+            <template #default="scope">
+              <el-button
+                type="primary"
+                text
+                size="small"
+                @click="handleEdit(scope.row)"
+              >
+                修改
+              </el-button>
+              <el-button
+                type="danger"
+                text
+                size="small"
+                @click="handleDelete(scope.row)"
+              >
+                删除
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-col>
+      <el-col>
+        <pagination
+          v-show="total > 0"
+          :total="total"
+          v-model:page="queryParams.pageNum"
+          v-model:limit="queryParams.pageSize"
+          @pagination="getList"
+      /></el-col>
+    </el-row>
 
     <!-- 弹窗组件 -->
     <!-- <UpdateForm
