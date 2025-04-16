@@ -11,6 +11,8 @@ import storetify from 'storetify'
 // svg图标
 import elementIcons from '@/components/SvgIcon/svgicon'
 
+import '@/assets/styles/index.scss' // global css
+
 // 分页组件
 import Pagination from '@/components/Pagination'
 
