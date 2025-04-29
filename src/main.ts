@@ -9,6 +9,7 @@ import locale from 'element-plus/es/locale/lang/zh-cn'
 import storetify from 'storetify'
 
 // svg图标
+import 'virtual:svg-icons-register'
 import elementIcons from '@/components/SvgIcon/svgicon'
 
 import '@/assets/styles/index.scss' // global css
