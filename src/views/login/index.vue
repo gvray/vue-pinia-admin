@@ -120,8 +120,13 @@ const handleLogin = async () => {
 };
 
 const loadRemembered = () => {
-  const { username, password, rememberMe } =
-    (storetify("rememberMe") as any) || {};
+  const {
+    username,
+    password,
+    rememberMe = false,
+  } = storetify<{ username: string; password: string; rememberMe: boolean }>(
+    "rememberMe"
+  ) || {};
   loginForm.value.username = username || "";
   loginForm.value.password = decrypt(password || "");
   loginForm.value.rememberMe = rememberMe;

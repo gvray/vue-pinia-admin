@@ -17,7 +17,7 @@
     "element-plus": "^2.9.7",
     "nprogress": "^0.2.0",
     "pinia": "^3.0.1",
-    "storetify": "^1.1.0",
+    "storetify": "^1.2.0",
     "swiftlet-log": "^1.1.0",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"

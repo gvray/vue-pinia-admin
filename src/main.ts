@@ -37,6 +37,6 @@ app.use(elementIcons)
 app.use(ElementPlus, {
     locale: locale,
     // 支持 large、default、small
-    size: storetify('size') as any || 'default'
+    size: storetify<'' | 'small' | 'default' | 'large'>('size') || 'default'
   })
 app.mount('#app')
