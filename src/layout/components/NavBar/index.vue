@@ -11,6 +11,7 @@
         <el-button type="text" icon="el-icon-setting" />
         <el-button type="text" icon="el-icon-bell" />
         <el-button type="text" icon="el-icon-user" />
+        <screenfull />
         <div class="avatar-container">
           <el-dropdown @command="handleCommand">
             <el-avatar
@@ -39,6 +40,7 @@
 
 <script setup lang="ts">
 import Breadcrumb from "@/components/Breadcrumb";
+import Screenfull from '@/components/Screenfull';
 import { User, Setting, Mug } from "@element-plus/icons-vue";
 import { logger } from "~/src/utils";
 

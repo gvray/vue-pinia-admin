@@ -28,6 +28,7 @@
     "@types/nprogress": "^0.2.3",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",
+    "@vueuse/core": "^13.1.0",
     "mockjs": "^1.1.0",
     "sass": "^1.86.3",
     "typescript": "~5.7.2",
