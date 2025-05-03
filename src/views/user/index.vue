@@ -126,7 +126,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" name="User">
 import { ref, onMounted, toRefs, reactive, getCurrentInstance } from "vue";
 import { ElMessageBox, ElMessage } from "element-plus";
 import dayjs from "dayjs";
