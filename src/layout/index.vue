@@ -2,7 +2,7 @@
   <div class="app-container">
     <side-bar> </side-bar>
     <div class="main-container">
-      <navbar> Navbar</navbar>
+      <navbar></navbar>
       <app-main></app-main>
     </div>
   </div>

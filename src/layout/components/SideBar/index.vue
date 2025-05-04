@@ -3,7 +3,7 @@
     <logo></logo>
     <el-menu
       class="el-menu-vertical"
-      background-color="#304156"
+      :background-color="getMenuBackground"
       text-color="#bfcbd9"
       active-text-color="#409EFF"
       router
@@ -23,11 +23,24 @@
 <script setup lang="ts">
 import { defineComponent } from "vue";
 import { useRoute } from "vue-router";
+import useSettingsStore from '@/store/modules/settings'
+import variables from '@/assets/styles/variables.module.scss'
 import Logo from "./Logo.vue";
 const menuItems = [
-      { index: "/dashboard", title: "Dashboard", icon: "el-icon-s-home" },
-      { index: "/user", title: "User", icon: "el-icon-s-home" },
-    ];
+  { index: "/dashboard", title: "Dashboard", icon: "el-icon-s-home" },
+  { index: "/user", title: "User", icon: "el-icon-s-home" },
+];
+
+const settingsStore = useSettingsStore();
+
+const sideTheme = computed(()=>settingsStore.sideTheme)
+
+const getMenuBackground = computed(() => {
+  if(settingsStore.isDark){
+    return `var(--sidebar-bg-color)`;
+  }
+  return sideTheme.value === 'theme-dark' ? variables.menuBg : variables.menuBgLight ;
+});
 </script>
 
 <style lang="scss" scoped>

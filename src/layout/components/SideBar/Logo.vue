@@ -13,7 +13,8 @@
   justify-content: center;
   width: 199px;
   height: 60px;
-  background-color: #304156;
+  background-color: var(--sidebar-bg-color);
+  border-right: 1px solid var(--el-menu-border-color);
   .logo-img {
     width: 32px;
     height: 32px;
