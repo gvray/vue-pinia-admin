@@ -16,6 +16,7 @@
     "dayjs": "^1.11.13",
     "element-plus": "^2.9.7",
     "nprogress": "^0.2.0",
+    "path-copilot": "1.0.0-Beta",
     "pinia": "^3.0.1",
     "storetify": "^1.2.0",
     "swiftlet-log": "^1.1.0",

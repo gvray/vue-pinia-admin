@@ -8,38 +8,41 @@
       active-text-color="#409EFF"
       router
     >
-      <el-menu-item
-        v-for="item in menuItems"
-        :key="item.index"
-        :index="item.index"
-      >
-        <i :class="item.icon"></i>
-        <span slot="title">{{ item.title }}</span>
-      </el-menu-item>
+      <sidebar-item
+        v-for="(route, index) in routes"
+        :key="route.path + index"
+        :item="route"
+        :base-path="route.path"
+      />
     </el-menu>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 import { useRoute } from "vue-router";
-import useSettingsStore from '@/store/modules/settings'
-import variables from '@/assets/styles/variables.module.scss'
+import useSettingsStore from "@/store/modules/settings";
+import variables from "@/assets/styles/variables.module.scss";
 import Logo from "./Logo.vue";
-const menuItems = [
-  { index: "/dashboard", title: "Dashboard", icon: "el-icon-s-home" },
-  { index: "/user", title: "User", icon: "el-icon-s-home" },
-];
+import SidebarItem from "./SidebarItem";
+import { constantRoutes } from "@/router";
+
+// 从constantRoutes中提取菜单项
+const routes = computed(() => {
+  return constantRoutes.filter((route) => !route.hidden);
+});
 
 const settingsStore = useSettingsStore();
 
-const sideTheme = computed(()=>settingsStore.sideTheme)
+const sideTheme = computed(() => settingsStore.sideTheme);
 
 const getMenuBackground = computed(() => {
-  if(settingsStore.isDark){
+  if (settingsStore.isDark) {
     return `var(--sidebar-bg-color)`;
   }
-  return sideTheme.value === 'theme-dark' ? variables.menuBg : variables.menuBgLight ;
+  return sideTheme.value === "theme-dark"
+    ? variables.menuBg
+    : variables.menuBgLight;
 });
 </script>
 

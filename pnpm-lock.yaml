@@ -23,6 +23,9 @@ dependencies:
   nprogress:
     specifier: ^0.2.0
     version: 0.2.0
+  path-copilot:
+    specifier: 1.0.0-Beta
+    version: 1.0.0-Beta
   pinia:
     specifier: ^3.0.1
     version: 3.0.1(typescript@5.7.3)(vue@3.5.13)
@@ -2968,6 +2971,12 @@ packages:
     resolution: {integrity: sha512-b7uo2UCUOYZcnF/3ID0lulOJi/bafxa1xPe7ZPsammBSpjSWQkjNxlt635YGS2MiR9GjvuXCtz2emr3jbsz98g==}
     dev: true
 
+  /path-copilot@1.0.0-Beta:
+    resolution: {integrity: sha512-JMYTE8uk50Nh+uCz1wQzeR1FAEqFo/CyRvDBt3ixqCPcsNwIc/DBE6S/pocMWIH05HOeoYG9LMfLfpCnJV6/EA==}
+    dependencies:
+      ts-copilot: 1.0.0-Beta
+    dev: false
+
   /path-to-regexp@6.3.0:
     resolution: {integrity: sha512-Yhpw4T9C6hPpgPeA28us07OJeqZ5EzQTkbfwuhsUg0c237RomFoETJgmp2sa3F/41gfLE6G5cqcYwznmeEeOlQ==}
     dev: true
@@ -3635,6 +3644,10 @@ packages:
       typedarray.prototype.slice: 1.0.5
       which-typed-array: 1.1.19
     dev: true
+
+  /ts-copilot@1.0.0-Beta:
+    resolution: {integrity: sha512-qXHdgfMaYa0/JurHGvl/oI1NPLR47yaIqkFIrG5XnmBwnCyfPetJVsi2nqECf6OhgtWfauR3dSkys36apZt+qw==}
+    dev: false
 
   /typed-array-buffer@1.0.3:
     resolution: {integrity: sha512-nAYYwfY3qnzX30IkA6AQZjVbtK6duGontcQm1WSG1MD94YLqK0515GNApXkoxKOWMusVssAHWLh9SeaoefYFGw==}
