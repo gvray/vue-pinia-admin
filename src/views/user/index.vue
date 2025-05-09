@@ -91,7 +91,7 @@
                 type="primary"
                 text
                 size="small"
-                @click="handleEdit(scope.row)"
+                @click="handleUpdate(scope.row)"
               >
                 修改
               </el-button>
@@ -116,22 +116,144 @@
           @pagination="getList"
       /></el-col>
     </el-row>
-
-    <!-- 弹窗组件 -->
-    <!-- <UpdateForm
-        v-model:visible="updateVisible"
-        :form-data="formData"
-        @refresh="getList"
-      /> -->
+    <!-- 添加或修改用户配置对话窗口 -->
+    <el-dialog :title="title" v-model="open" width="600px" append-to-body>
+      <el-form :model="form" :rules="rules" ref="userRef" label-width="80px">
+        <el-row>
+          <el-col :span="12">
+            <el-form-item
+              v-if="form.userId == undefined"
+              label="用户名称"
+              prop="userName"
+            >
+              <el-input
+                v-model="form.userName"
+                placeholder="请输入用户名称"
+                maxlength="30"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              v-if="form.userId == undefined"
+              label="用户密码"
+              prop="password"
+            >
+              <el-input
+                v-model="form.password"
+                placeholder="请输入用户密码"
+                type="password"
+                maxlength="20"
+                show-password
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="手机号码" prop="phoneNumber">
+              <el-input
+                v-model="form.phoneNumber"
+                placeholder="请输入手机号码"
+                maxlength="11"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="邮箱" prop="email">
+              <el-input
+                v-model="form.email"
+                placeholder="请输入邮箱"
+                maxlength="50"
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="状态">
+              <el-radio-group v-model="form.status">
+                <el-radio
+                  v-for="dict in [
+                    { label: '正常', value: '0' },
+                    { label: '停用', value: '1' },
+                  ]"
+                  :key="dict.value"
+                  :value="dict.value"
+                  >{{ dict.label }}</el-radio
+                >
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="角色">
+              <el-select v-model="form.roleIds" multiple placeholder="请选择">
+                <el-option
+                  v-for="item in roleOptions"
+                  :key="item.roleId"
+                  :label="item.roleName"
+                  :value="item.roleId"
+                  :disabled="item.status == 1"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="用户昵称" prop="nickName">
+              <el-input
+                v-model="form.nickName"
+                placeholder="请输入用户昵称"
+                maxlength="30"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="用户性别">
+              <el-select v-model="form.sex" placeholder="请选择">
+                <el-option
+                  v-for="dict in [
+                    { label: '男', value: '1' },
+                    { label: '女', value: '0' },
+                  ]"
+                  :key="dict.value"
+                  :label="dict.label"
+                  :value="dict.value"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="24">
+            <el-form-item label="备注">
+              <el-input
+                v-model="form.remark"
+                type="textarea"
+                placeholder="请输入内容"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button type="primary" @click="submitForm">确 定</el-button>
+          <el-button @click="cancel">取 消</el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts" name="User">
 import { ref, onMounted, toRefs, reactive, getCurrentInstance } from "vue";
 import { ElMessageBox, ElMessage } from "element-plus";
+import type { ElFormInstance } from "element-plus";
 import dayjs from "dayjs";
-import { listUser, deleteUser, getUser } from "@/api/user";
-//   import UpdateForm from './components/UpdateForm';
+import { listUser, deleteUser, getUser, addUser, updateUser } from "@/api/user";
+import { useModal } from "@/composables/useModal";
 
 const { proxy } = getCurrentInstance();
 
@@ -141,6 +263,8 @@ const loading = ref(true);
 const showSearch = ref(true);
 const total = ref(0);
 const dateRange = ref([]);
+const title = ref(""); // 弹出框标题
+const ids = ref([]); // 用于接收传递的id
 
 const data = reactive({
   form: {},
@@ -196,9 +320,14 @@ const data = reactive({
 });
 
 const { queryParams, form, rules } = toRefs(data);
+const roleOptions = ref([]);
 
 const updateVisible = ref(false);
 const formData = ref({});
+
+const userRef = ref<ElFormInstance>();
+const modal = useModal();
+
 // 查询用户列表
 const getList = async () => {
   loading.value = true;
@@ -223,14 +352,34 @@ const handleQuery = () => {
 // 重置按钮操作
 const resetQuery = () => {
   dateRange.value = [];
-  proxy.$resetForm("queryRef");
+  userRef.value?.resetFields();
   handleQuery();
+};
+
+// 重置添加用户表单
+const reset = () => {
+  // 第一步
+  form.value = {
+    userId: undefined,
+    userName: undefined,
+    nickName: undefined,
+    password: undefined,
+    phoneNumber: undefined,
+    email: undefined,
+    sex: undefined,
+    status: "0",
+    remark: undefined,
+    roleIds: [],
+  };
+  // 第二步
+  proxy.$resetForm("userRef");
 };
 
 // 添加用户操作
 const handleAdd = () => {
-  formData.value = {};
-  updateVisible.value = true;
+  reset();
+  title.value = "添加用户";
+  open.value = true;
 };
 
 // 编辑用户操作
@@ -253,6 +402,47 @@ const handleDelete = (row: any) => {
     .catch(() => {});
 };
 
+// 修改用户操作
+const handleUpdate =(row)=> {
+  reset();
+  const userId = row.userId || ids.value;
+  getUser(userId).then(response => {
+    form.value = response;
+    roleOptions.value = response.roles;
+    open.value = true;
+    title.value = "修改用户";
+    form.password = "";
+  });
+};
+
+// 取消按钮操作
+function cancel() {
+  open.value = false;
+  reset();
+}
+
+// 保存用户操作
+function submitForm() {
+  userRef.value?.validate((valid) => {
+    if (valid) {
+      if (form.value.userId != undefined) {
+        updateUser(form.value).then((response) => {
+          modal.msgSuccess("修改成功");
+          open.value = false;
+          getList();
+        });
+      } else {
+        addUser(form.value).then((response) => {
+          modal.msgSuccess("新增成功");
+          open.value = false;
+          getList();
+        });
+      }
+    }
+  });
+}
+
+// 格式化状态
 const formatStatus = (row: any) => {
   return row.status === "0" ? "正常" : "停用";
 };

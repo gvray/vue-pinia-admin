@@ -21,7 +21,24 @@ for (let i = 1; i <= index; i++) {
     sex: "1",
     status: i % 2 === 0 ? "0" : "1",
     delFlag: "0",
+    roleIds: [],
   });
+}
+
+// 辅助函数：从URL中提取ID参数
+function extractIdFromUrl(params: any, url: string): number {
+  // 从 params 中提取 id
+  let id = params?.id;
+
+  // 如果 params.id 不存在，尝试从 URL 中解析
+  if (!id && url) {
+    const match = url.match(/\/api\/user\/(\d+)/);
+    if (match && match[1]) {
+      id = match[1];
+    }
+  }
+
+  return parseInt(id);
 }
 
 export default [
@@ -83,8 +100,9 @@ export default [
   {
     url: "/api/user/:id",
     method: "get",
-    response: ({ params }) => {
-      const user = resultData.get(parseInt(params.id));
+    response: ({ params, url }) => {
+      const id = extractIdFromUrl(params, url);
+      const user = resultData.get(id);
       return {
         success: true,
         code: 200,
@@ -96,8 +114,9 @@ export default [
   {
     url: "/api/user/:id",
     method: "delete",
-    response: ({ params }) => {
-      resultData.delete(parseInt(params.id));
+    response: ({ params, url }) => {
+      const id = extractIdFromUrl(params, url);
+      resultData.delete(id);
       return {
         success: true,
         code: 200,
