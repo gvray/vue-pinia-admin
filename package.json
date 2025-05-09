@@ -20,6 +20,7 @@
     "pinia": "^3.0.1",
     "storetify": "^1.2.0",
     "swiftlet-log": "^1.1.0",
+    "ts-copilot": "1.0.0-Beta",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
