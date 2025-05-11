@@ -3,6 +3,7 @@
  * @see https://www.prettier.cn/docs/options.html
  */
 export default {
+  $schema: 'https://json.schemastore.org/prettierrc',
   trailingComma: 'all',
   singleQuote: true,
   semi: false,

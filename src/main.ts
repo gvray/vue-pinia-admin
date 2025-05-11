@@ -3,6 +3,10 @@ import router from '@/router'
 import store from '@/store'
 import App from '@/App'
 import ElementPlus from 'element-plus'
+
+// 引入 normalize.css 重置各浏览器的样式差异
+import 'normalize.css'
+
 import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import locale from 'element-plus/es/locale/lang/zh-cn'
