@@ -4,9 +4,9 @@
       <div class="content">
         <div class="title">欢迎开启新世界</div>
         <el-form
+          ref="loginFormRef"
           :model="loginForm"
           :rules="rules"
-          ref="loginFormRef"
           label-position="right"
           label-width="auto"
           size="large"
@@ -26,8 +26,8 @@
               type="password"
               placeholder="密码"
               auto-complete="off"
-              @keyup.enter="handleLogin"
               :prefix-icon="Lock"
+              @keyup.enter="handleLogin"
             />
           </el-form-item>
           <el-form-item>
@@ -37,10 +37,10 @@
             <el-button
               type="primary"
               :loading="isLogging"
-              @click.prevent="handleLogin"
               style="width: 100%"
+              @click.prevent="handleLogin"
             >
-              {{ isLogging ? "登录中..." : "登录" }}
+              {{ isLogging ? '登录中...' : '登录' }}
             </el-button>
           </el-form-item>
         </el-form>
@@ -55,46 +55,46 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import { ElMessage } from "element-plus";
-import storetify from "storetify";
-import LoginBg from "./components/LoginBg.vue";
-import { useRouter } from "vue-router";
-import { Edit, User, Lock } from "@element-plus/icons-vue";
-import useUserStore from "@/store/modules/user";
-import { encrypt, decrypt } from "@/utils";
+import { ref, onMounted } from 'vue'
+import { ElMessage } from 'element-plus'
+import storetify from 'storetify'
+import LoginBg from './components/LoginBg.vue'
+import { useRouter } from 'vue-router'
+import { Edit, User, Lock } from '@element-plus/icons-vue'
+import useUserStore from '@/store/modules/user'
+import { encrypt, decrypt } from '@/utils'
 
-const userStore = useUserStore();
-const router = useRouter();
-const loginFormRef = ref();
+const userStore = useUserStore()
+const router = useRouter()
+const loginFormRef = ref()
 
-const isLogging = ref(false);
+const isLogging = ref(false)
 
 const loginForm = ref({
-  username: "",
-  password: "",
+  username: '',
+  password: '',
   rememberMe: true,
-});
+})
 
 const rules = {
-  username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
-  password: [{ required: true, message: "请输入密码", trigger: "blur" }],
-};
+  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+}
 
 const handleLogin = async () => {
   await loginFormRef.value.validate(async (valid: boolean) => {
-    if (!valid) return;
+    if (!valid) return
 
-    isLogging.value = true;
+    isLogging.value = true
 
     if (loginForm.value.rememberMe) {
-      storetify("rememberMe", {
+      storetify('rememberMe', {
         username: loginForm.value.username,
         password: encrypt(loginForm.value.password),
         rememberMe: loginForm.value.rememberMe,
-      });
+      })
     } else {
-      storetify("rememberMe", undefined);
+      storetify('rememberMe', undefined)
     }
 
     // 调用action的登录方法
@@ -102,22 +102,22 @@ const handleLogin = async () => {
       .login(loginForm.value)
       .then(() => {
         ElMessage({
-          message: "登陆成功",
-          type: "success",
+          message: '登陆成功',
+          type: 'success',
           plain: true,
-        });
-        router.push({ path: "/" });
+        })
+        router.push({ path: '/' })
       })
       .catch(() => {
         ElMessage({
-          message: "登陆失败",
-          type: "error",
+          message: '登陆失败',
+          type: 'error',
           plain: true,
-        });
-        isLogging.value = false;
-      });
-  });
-};
+        })
+        isLogging.value = false
+      })
+  })
+}
 
 const loadRemembered = () => {
   const {
@@ -125,16 +125,16 @@ const loadRemembered = () => {
     password,
     rememberMe = false,
   } = storetify<{ username: string; password: string; rememberMe: boolean }>(
-    "rememberMe"
-  ) || {};
-  loginForm.value.username = username || "";
-  loginForm.value.password = decrypt(password || "");
-  loginForm.value.rememberMe = rememberMe;
-};
+    'rememberMe',
+  ) || {}
+  loginForm.value.username = username || ''
+  loginForm.value.password = decrypt(password || '')
+  loginForm.value.rememberMe = rememberMe
+}
 
 onMounted(() => {
-  loadRemembered();
-});
+  loadRemembered()
+})
 </script>
 
 <style scoped lang="scss">

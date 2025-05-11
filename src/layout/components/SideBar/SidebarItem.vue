@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { isAbsolute, join } from "path-copilot";
+import { isAbsolute, join } from 'path-copilot'
 
 // 定义组件属性
 const props = defineProps({
@@ -48,22 +48,22 @@ const props = defineProps({
   },
   basePath: {
     type: String,
-    default: "",
+    default: '',
   },
-});
+})
 
 // 判断是否有子菜单
 const hasChildren = (item: any) => {
-  return item.children && item.children.length > 0 && !item.noShowingChildren;
-};
+  return item.children && item.children.length > 0 && !item.noShowingChildren
+}
 
 // 解析路径
 const resolvePath = (routePath: string) => {
   if (isAbsolute(routePath)) {
-    return routePath;
+    return routePath
   }
-  return join(props.basePath, routePath);
-};
+  return join(props.basePath, routePath)
+}
 </script>
 
 <style scoped lang="scss">

@@ -39,21 +39,21 @@
 </template>
 
 <script setup lang="ts">
-import Breadcrumb from "@/components/Breadcrumb";
-import Screenfull from '@/components/Screenfull';
-import ThemeSwitch from '@/components/ThemeSwitch';
-import { User, Setting, Mug } from "@element-plus/icons-vue";
-import { logger } from "~/src/utils";
+import Breadcrumb from '@/components/Breadcrumb'
+import Screenfull from '@/components/Screenfull'
+import ThemeSwitch from '@/components/ThemeSwitch'
+import { User, Setting, Mug } from '@element-plus/icons-vue'
+import { logger } from '~/src/utils'
 
 const handleCommand = (command: string) => {
-  logger.info("Command executed:" + command);
-};
+  logger.info('Command executed:' + command)
+}
 </script>
 
 <script lang="ts">
 export default {
-  name: "NavBar",
-};
+  name: 'NavBar',
+}
 </script>
 
 <style scoped>

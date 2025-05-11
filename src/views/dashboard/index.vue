@@ -1,5 +1,4 @@
 <template>
-    <div>dashboard</div>
+  <div>dashboard</div>
 </template>
-<script lang="ts" setup name="Dashboard">
-</script>
+<script lang="ts" setup name="Dashboard"></script>

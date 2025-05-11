@@ -10,15 +10,15 @@ NProgress.configure({ showSpinner: false })
 
 const whiteList = ['/login', '/register']
 
-const isWhiteList = (path:string) => {
-  return whiteList.some(pattern => isPathMatch(pattern, path))
+const isWhiteList = (path: string) => {
+  return whiteList.some((pattern) => isPathMatch(pattern, path))
 }
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
   // 有token
   if (getToken()) {
-    logger.info(`路由跳转：${from.fullPath} -> ${to.fullPath} ${to.meta.title }`);
+    logger.info(`路由跳转：${from.fullPath} -> ${to.fullPath} ${to.meta.title}`)
     // TODO 设置标题
     // to.meta.title && useSettingsStore().setTitle(to.meta.title)
     if (to.path === '/login') {

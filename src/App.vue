@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import { ElConfigProvider } from "element-plus";
+import { defineComponent } from 'vue'
+import { ElConfigProvider } from 'element-plus'
 
 export default defineComponent({
   components: {
@@ -15,8 +15,8 @@ export default defineComponent({
   setup() {
     return {
       zIndex: 3000,
-      size: "default",
-    };
+      size: 'default',
+    }
   },
-});
+})
 </script>

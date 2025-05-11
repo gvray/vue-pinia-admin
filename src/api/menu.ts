@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request from '@/utils/request'
 
 // 获取菜单列表
 export function getMenus(params?: { [key: string]: any }) {
@@ -6,5 +6,5 @@ export function getMenus(params?: { [key: string]: any }) {
     url: '/menu/list',
     method: 'get',
     params,
-  });
+  })
 }

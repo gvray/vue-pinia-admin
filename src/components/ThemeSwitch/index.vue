@@ -8,16 +8,16 @@
 </template>
 
 <script setup lang="ts">
-import { MoonNight, Sunny } from "@element-plus/icons-vue";
-import useSettingsStore from "@/store/modules/settings";
+import { MoonNight, Sunny } from '@element-plus/icons-vue'
+import useSettingsStore from '@/store/modules/settings'
 
 // 获取设置store
-const settingsStore = useSettingsStore();
+const settingsStore = useSettingsStore()
 
 // 切换主题方法
 const toggleTheme = () => {
-  settingsStore.toggleDarkMode();
-};
+  settingsStore.toggleDarkMode()
+}
 </script>
 
 <style scoped>

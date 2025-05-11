@@ -23,7 +23,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background: url("@/assets/login-bg_1.jpg") no-repeat;
+    background: url('@/assets/login-bg_1.jpg') no-repeat;
     background-size: cover;
   }
 

@@ -1,15 +1,15 @@
-import storetify from "storetify";
+import storetify from 'storetify'
 
-const TokenKey = "Admin-Token";
+const TokenKey = 'Admin-Token'
 
 export function getToken() {
-  return storetify(TokenKey);
+  return storetify(TokenKey)
 }
 
 export function setToken(token: string) {
-  return storetify(TokenKey, token);
+  return storetify(TokenKey, token)
 }
 
 export function removeToken() {
-  return storetify.remove(TokenKey);
+  return storetify.remove(TokenKey)
 }

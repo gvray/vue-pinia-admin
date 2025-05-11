@@ -12,54 +12,55 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
-import type { Ref } from "vue";
+import { ref, watchEffect } from 'vue'
+import type { Ref } from 'vue'
 import type {
   RouteLocationMatched,
   RouteLocationNormalizedLoaded,
-} from "vue-router";
+} from 'vue-router'
 
 interface Meta {
-  title: string;
-  breadcrumb?: boolean;
+  title: string
+  breadcrumb?: boolean
 }
 
 interface MatchedRoute {
-  path: string;
-  meta: Meta;
-  redirect?: string;
+  path: string
+  meta: Meta
+  redirect?: string
 }
 
 interface BreadcrumbItem {
-  path: string;
-  redirect?: string;
+  path: string
+  redirect?: string
   meta: {
-    title: string;
-    breadcrumb?: boolean;
-  };
+    title: string
+    breadcrumb?: boolean
+  }
 }
 
 const levelList: Ref<MatchedRoute[]> = ref([
-  { path: "", meta: { title: "首页" } },
-]);
+  { path: '', meta: { title: '首页' } },
+])
 
-const route: RouteLocationNormalizedLoaded = useRoute();
-const router = useRouter();
-import { useRoute, useRouter } from "vue-router";
+const route: RouteLocationNormalizedLoaded = useRoute()
+const router = useRouter()
+import { useRoute, useRouter } from 'vue-router'
 
-const isDashboard = (route) => {
-  const name = route && route.name;
+const isDashboard = (route: any) => {
+  const name = route && route.name
   if (!name) {
-    return false;
+    return false
   }
-  return name.trim() === "Dashboard";
-};
+  return name.trim() === 'Dashboard'
+}
 const getBreadcrumb = () => {
   // 过滤掉不需要显示的面包屑
   let matched = [
     ...route.matched
       .filter(
-        (item) => item.meta && item.meta.title && item.meta.breadcrumb !== false
+        (item) =>
+          item.meta && item.meta.title && item.meta.breadcrumb !== false,
       )
       .map((item) => {
         return {
@@ -67,34 +68,34 @@ const getBreadcrumb = () => {
           path: item.path,
           meta: item.meta,
           redirect: item.redirect,
-        };
+        }
       }),
-  ];
-  console.log(matched);
+  ]
+  console.log(matched)
   if (isDashboard(matched[1])) {
-    matched = matched.concat(matched[0].matched);
+    matched = matched.concat(matched[0].matched)
   }
   // 判断是否为首页
   if (!isDashboard(matched[0])) {
-    matched = [{ path: "/dashboard", meta: { title: "首页" } }].concat(matched);
+    matched = [{ path: '/dashboard', meta: { title: '首页' } }].concat(matched)
   }
   // 过滤掉不需要显示的面包屑
-  levelList.value = matched;
-};
+  levelList.value = matched
+}
 const handleLink = (item: BreadcrumbItem) => {
   if (item.redirect) {
-    router.push(item.redirect);
+    router.push(item.redirect)
   } else {
-    router.push(item.path);
+    router.push(item.path)
   }
-};
+}
 
 watchEffect(() => {
-  if (route.path.startsWith("/redirect/")) {
-    return;
+  if (route.path.startsWith('/redirect/')) {
+    return
   }
-  getBreadcrumb();
-});
+  getBreadcrumb()
+})
 </script>
 
 <style lang="scss" scoped></style>

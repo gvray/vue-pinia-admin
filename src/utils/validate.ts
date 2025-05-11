@@ -6,11 +6,11 @@
  */
 export function isPathMatch(pattern: string, path: string) {
   const regexPattern = pattern
-    .replace(/\//g, "\\/")
-    .replace(/\*\*/g, ".*")
-    .replace(/\*/g, "[^\\/]*");
-  const regex = new RegExp(`^${regexPattern}$`);
-  return regex.test(path);
+    .replace(/\//g, '\\/')
+    .replace(/\*\*/g, '.*')
+    .replace(/\*/g, '[^\\/]*')
+  const regex = new RegExp(`^${regexPattern}$`)
+  return regex.test(path)
 }
 
 /**
@@ -19,5 +19,5 @@ export function isPathMatch(pattern: string, path: string) {
  * @returns {Boolean}
  */
 export function isHttp(url: string) {
-  return url.indexOf("http://") !== -1 || url.indexOf("https://") !== -1;
+  return url.indexOf('http://') !== -1 || url.indexOf('https://') !== -1
 }

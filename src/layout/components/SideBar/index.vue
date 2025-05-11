@@ -19,31 +19,31 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, computed } from "vue";
-import { useRoute } from "vue-router";
-import useSettingsStore from "@/store/modules/settings";
-import variables from "@/assets/styles/variables.module.scss";
-import Logo from "./Logo.vue";
-import SidebarItem from "./SidebarItem";
-import { constantRoutes } from "@/router";
+import { defineComponent, computed } from 'vue'
+import { useRoute } from 'vue-router'
+import useSettingsStore from '@/store/modules/settings'
+import variables from '@/assets/styles/variables.module.scss'
+import Logo from './Logo.vue'
+import SidebarItem from './SidebarItem'
+import { constantRoutes } from '@/router'
 
 // 从constantRoutes中提取菜单项
 const routes = computed(() => {
-  return constantRoutes.filter((route) => !route.hidden);
-});
+  return constantRoutes.filter((route) => !route.hidden)
+})
 
-const settingsStore = useSettingsStore();
+const settingsStore = useSettingsStore()
 
-const sideTheme = computed(() => settingsStore.sideTheme);
+const sideTheme = computed(() => settingsStore.sideTheme)
 
 const getMenuBackground = computed(() => {
   if (settingsStore.isDark) {
-    return `var(--sidebar-bg-color)`;
+    return `var(--sidebar-bg-color)`
   }
-  return sideTheme.value === "theme-dark"
+  return sideTheme.value === 'theme-dark'
     ? variables.menuBg
-    : variables.menuBgLight;
-});
+    : variables.menuBgLight
+})
 </script>
 
 <style lang="scss" scoped>

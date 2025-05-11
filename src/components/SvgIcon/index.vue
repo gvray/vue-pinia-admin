@@ -12,21 +12,21 @@ const props = defineProps({
   },
   className: {
     type: String,
-    default: "",
+    default: '',
   },
   color: {
     type: String,
-    default: "",
+    default: '',
   },
-});
+})
 
-const iconName = computed(() => `#icon-${props.iconClass}`);
+const iconName = computed(() => `#icon-${props.iconClass}`)
 const svgClass = computed(() => {
   if (props.className) {
-    return `svg-icon ${props.className}`;
+    return `svg-icon ${props.className}`
   }
-  return "svg-icon";
-});
+  return 'svg-icon'
+})
 </script>
 
 <style scope lang="scss">

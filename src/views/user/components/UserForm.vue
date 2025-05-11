@@ -1,15 +1,15 @@
 <template>
   <el-dialog
-    :title="title"
     v-model="dialogVisible"
+    :title="title"
     width="600px"
     append-to-body
     @close="handleClose"
   >
     <el-form
+      ref="userFormRef"
       :model="formData"
       :rules="rules"
-      ref="userFormRef"
       label-width="80px"
     >
       <el-row>
@@ -134,11 +134,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, defineProps, defineEmits, watch, computed } from "vue";
-import type { ElFormInstance } from "element-plus";
-import { isEmpty } from "ts-copilot";
-import { useModal } from "@/composables/useModal";
-import { addUser, updateUser } from "@/api/user";
+import { ref, reactive, defineProps, defineEmits, watch, computed } from 'vue'
+import type { ElFormInstance } from 'element-plus'
+import { isEmpty } from 'ts-copilot'
+import { useModal } from '@/composables/useModal'
+import { addUser, updateUser } from '@/api/user'
 
 // 定义组件属性
 const props = defineProps({
@@ -148,110 +148,110 @@ const props = defineProps({
   },
   title: {
     type: String,
-    default: "",
+    default: '',
   },
   userData: {
     type: Object,
     default: () => ({}),
   },
-});
+})
 
 // 定义组件事件
-const emit = defineEmits(["update:visible", "success", "cancel"]);
+const emit = defineEmits(['update:visible', 'success', 'cancel'])
 
 // 表单引用
-const userFormRef = ref<ElFormInstance>();
+const userFormRef = ref<ElFormInstance>()
 
 // 对话框可见性
 const dialogVisible = computed({
   get: () => props.visible,
-  set: (value) => emit("update:visible", value)
-});
+  set: (value) => emit('update:visible', value),
+})
 
 // 使用自定义的模态框组件
-const modal = useModal();
+const modal = useModal()
 
 // 表单数据
 const formData = reactive({
   userId: undefined,
-  userName: "",
-  nickName: "",
-  password: "",
-  phoneNumber: "",
-  email: "",
-  sex: "1",
-  status: "0",
-  remark: "",
+  userName: '',
+  nickName: '',
+  password: '',
+  phoneNumber: '',
+  email: '',
+  sex: '1',
+  status: '0',
+  remark: '',
   roleIds: [],
-});
+})
 
 // 状态选项
 const statusOptions = [
-  { label: "正常", value: "0" },
-  { label: "停用", value: "1" },
-];
+  { label: '正常', value: '0' },
+  { label: '停用', value: '1' },
+]
 
 // 性别选项
 const sexOptions = [
-  { label: "男", value: "1" },
-  { label: "女", value: "0" },
-];
+  { label: '男', value: '1' },
+  { label: '女', value: '0' },
+]
 
 // 角色选项
-const roleOptions = ref([]);
+const roleOptions = ref([])
 
 // 表单验证规则
 const rules = {
   userName: [
-    { required: true, message: "用户名称不能为空", trigger: "blur" },
+    { required: true, message: '用户名称不能为空', trigger: 'blur' },
     {
       min: 2,
       max: 20,
-      message: "用户名称长度必须介于 2 和 20 之间",
-      trigger: "blur",
+      message: '用户名称长度必须介于 2 和 20 之间',
+      trigger: 'blur',
     },
   ],
-  nickName: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
+  nickName: [{ required: true, message: '用户昵称不能为空', trigger: 'blur' }],
   password: [
-    { required: true, message: "用户密码不能为空", trigger: "blur" },
+    { required: true, message: '用户密码不能为空', trigger: 'blur' },
     {
       min: 5,
       max: 20,
-      message: "用户密码长度必须介于 5 和 20 之间",
-      trigger: "blur",
+      message: '用户密码长度必须介于 5 和 20 之间',
+      trigger: 'blur',
     },
     {
       pattern: /^[^<>"'|\\]+$/,
-      message: "不能包含非法字符：< > \" ' \\ |",
-      trigger: "blur",
+      message: '不能包含非法字符：< > " \' \\ |',
+      trigger: 'blur',
     },
   ],
   email: [
     {
-      type: "email",
-      message: "请输入正确的邮箱地址",
-      trigger: ["blur", "change"],
+      type: 'email',
+      message: '请输入正确的邮箱地址',
+      trigger: ['blur', 'change'],
     },
   ],
   phoneNumber: [
     {
       pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/,
-      message: "请输入正确的手机号码",
-      trigger: "blur",
+      message: '请输入正确的手机号码',
+      trigger: 'blur',
     },
   ],
-};
+}
 
 watchEffect(() => {
-  const val = props.userData;
+  const val = props.userData
   if (!isEmpty(val)) {
-    Object.assign(formData, val);
+    Object.assign(formData, val)
     // 如果是编辑模式，清空密码
     if (formData.userId) {
-      formData.password = "";
+      formData.password = ''
     }
   }
-});
+})
 // 提交表单
 const submitForm = () => {
   userFormRef.value?.validate(async (valid) => {
@@ -259,46 +259,46 @@ const submitForm = () => {
       try {
         if (formData.userId) {
           // 更新用户
-          await updateUser(formData);
-          modal.msgSuccess("修改成功");
+          await updateUser(formData)
+          modal.msgSuccess('修改成功')
         } else {
           // 添加用户
-          await addUser(formData);
-          modal.msgSuccess("新增成功");
+          await addUser(formData)
+          modal.msgSuccess('新增成功')
         }
         // 通知父组件操作成功
-        emit("success");
+        emit('success')
         // 关闭对话框
-        dialogVisible.value = false;
+        dialogVisible.value = false
       } catch (error) {
-        console.error("提交表单失败", error);
-        modal.msgError("操作失败");
+        console.error('提交表单失败', error)
+        modal.msgError('操作失败')
       }
     }
-  });
-};
+  })
+}
 
 // 取消操作
 const handleCancel = () => {
-  dialogVisible.value = false;
-  emit("cancel");
-};
+  dialogVisible.value = false
+  emit('cancel')
+}
 
 // 关闭对话框
 const handleClose = () => {
-  userFormRef.value?.resetFields();
-  emit("cancel");
-};
+  userFormRef.value?.resetFields()
+  emit('cancel')
+}
 
 // 设置角色选项
 const setRoleOptions = (roles) => {
-  roleOptions.value = roles || [];
-};
+  roleOptions.value = roles || []
+}
 
 // 暴露方法给父组件
 defineExpose({
   setRoleOptions,
-});
+})
 </script>
 
 <style scoped>

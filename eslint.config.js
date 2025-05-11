@@ -8,7 +8,7 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 
 export default tseslint.config(
   {
-    ignores: ['node_modules', 'dist', 'public'],
+    ignores: ['node_modules', 'dist', 'html', 'mock', 'types', 'public'],
   },
 
   /** js推荐配置 */
@@ -34,6 +34,7 @@ export default tseslint.config(
     files: ['**/*.{js,mjs,cjs,vue}'],
     rules: {
       'no-console': 'warn',
+      'no-irregular-whitespace': 'warn',
     },
   },
 
@@ -47,6 +48,19 @@ export default tseslint.config(
 
         /** 追加一些其他自定义全局规则 */
         wx: true,
+        // 自动导入的 Vue API
+        ref: 'readonly',
+        computed: 'readonly',
+        reactive: 'readonly',
+        readonly: 'readonly',
+        watch: 'readonly',
+        watchEffect: 'readonly',
+        onMounted: 'readonly',
+        onUnmounted: 'readonly',
+        defineProps: 'readonly',
+        defineEmits: 'readonly',
+        defineExpose: 'readonly',
+        withDefaults: 'readonly',
       },
     },
   },
@@ -75,6 +89,7 @@ export default tseslint.config(
           shallowOnly: true,
         },
       ],
+      'vue/multi-word-component-names': 'off',
     },
   },
 
@@ -83,7 +98,14 @@ export default tseslint.config(
    */
   {
     files: ['**/*.{ts,tsx,vue}'],
-    rules: {},
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-empty-object-type': 'off',
+      'vue/multi-word-component-names': 'off',
+      'prefer-const': ['warn', { destructuring: 'all' }],
+    },
   },
 
   /**
