@@ -1,4 +1,19 @@
 {
     "typescript.tsdk": "node_modules/typescript/lib",
-    "typescript.enablePromptUseWorkspaceTsdk": true
+    "typescript.enablePromptUseWorkspaceTsdk": true,
+    "eslint.validate": [
+        "javascript",
+        "vue",
+        "vue-html",
+        "typescript",
+        "typescriptreact",
+        "html",
+        "css",
+        "scss",
+        "less",
+        "json",
+        "jsonc",
+        "json5",
+        "markdown"
+    ],
 }
