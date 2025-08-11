@@ -1,5 +1,4 @@
 import compression from 'vite-plugin-compression'
-import type { Plugin } from 'vite'
 
 interface EnvConfig {
   VITE_BUILD_COMPRESS?: string
@@ -8,12 +7,12 @@ interface EnvConfig {
 interface CompressionOptions {
   ext: string
   deleteOriginFile: boolean
-  algorithm?: string
+  algorithm?: 'gzip' | 'brotliCompress'
 }
 
-export default function createCompression(env: EnvConfig): Plugin[] {
+export default function createCompression(env: EnvConfig) {
   const { VITE_BUILD_COMPRESS } = env
-  const plugin: Plugin[] = []
+  const plugin = []
 
   if (VITE_BUILD_COMPRESS) {
     const compressList: string[] = VITE_BUILD_COMPRESS.split(',')

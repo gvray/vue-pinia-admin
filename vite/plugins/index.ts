@@ -6,7 +6,6 @@ import createMockServer from './mock'
 import createSetupExtend from './setup-extend'
 import createCompression from './compression'
 import createVisualizer from './visualizer'
-import type { PluginOption } from 'vite'
 
 export interface ViteEnv {
   VITE_PORT?: number
@@ -26,11 +25,14 @@ export interface ViteEnv {
   [key: string]: any
 }
 
+// 类型适配器：处理 Vite 7.x 和插件之间的类型兼容性问题
+type VitePlugin = any
+
 export default function createVitePlugins(
   viteEnv: ViteEnv,
   isBuild = false,
-): PluginOption[] {
-  const vitePlugins: PluginOption[] = [vue()]
+): VitePlugin[] {
+  const vitePlugins: VitePlugin[] = [vue()]
 
   // 添加 AutoImport 插件
   vitePlugins.push(createAutoImport())
@@ -47,9 +49,13 @@ export default function createVitePlugins(
   // 添加 Setup 插件
   vitePlugins.push(createSetupExtend())
 
-  isBuild && vitePlugins.push(...createCompression(viteEnv))
+  if (isBuild) {
+    vitePlugins.push(...createCompression(viteEnv))
+  }
 
-  isBuild && vitePlugins.push(createVisualizer())
+  if (isBuild) {
+    vitePlugins.push(createVisualizer())
+  }
 
   return vitePlugins
 }
