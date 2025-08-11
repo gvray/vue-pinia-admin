@@ -26,7 +26,7 @@
 - [ ] Mock 本地数据模拟
 - [ ] 路由数据加载
 - [ ] 本地代理
-- [x] 编码规范以及`git`提交验证。使用`eslint`、`prettier`、`husky`、`lint-staged`进行代码校验和格式化。
+- [x] 团队项目编码规范自动化。使用`eslint`、`prettier`、`husky`、`lint-staged`进行代码校验和格式化。TODO message 验证
 - [ ] 工程代码调试
 - [ ] 测试
 - [ ] 样式管理方案

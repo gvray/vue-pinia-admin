@@ -4,6 +4,8 @@ import createAutoImport from './auto-import'
 import createComponents from './components'
 import createMockServer from './mock'
 import createSetupExtend from './setup-extend'
+import createCompression from './compression'
+import createVisualizer from './visualizer'
 import type { PluginOption } from 'vite'
 
 export interface ViteEnv {
@@ -44,6 +46,10 @@ export default function createVitePlugins(
 
   // 添加 Setup 插件
   vitePlugins.push(createSetupExtend())
+
+  isBuild && vitePlugins.push(...createCompression(viteEnv))
+
+  isBuild && vitePlugins.push(createVisualizer())
 
   return vitePlugins
 }
